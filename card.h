@@ -32,9 +32,10 @@ class Card
   public:
 
 
-    enum Suit {spades, hearts, diamonds, clubs};
+    enum Suit {spades, hearts, diamonds, clubs};            //An enumeration is a distinct type whose value is restricted to a range of values
+                                                            //We have specifies the suits of the cards
     
-    Card();          // default, ace of spades
+    Card();                                                 // default, ace of spades
 
     Card(int rank, Suit s);
 
@@ -43,11 +44,11 @@ class Card
     int  getRank()                 const;  // return rank, 1..13
     string suitString(Suit s)      const;  // return "s", "h",...
     
-    string rankString(int r)       const;  // return "A", "2", ..."Q"  
+    string rankString(int r)       const;  // return "A", "2", ..."Q"  append
     
     
     bool operator == (const Card& rhs) const;
-    bool operator != (const Card& rhs) const;
+    bool operator != (const Card& rhs) const;   //operator for the suit (?)
     
 
     
