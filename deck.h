@@ -40,8 +40,6 @@ class Deck
 
     Card myCards[SIZE];
     int myIndex;  // current card to deal
-    int current=52;
-    vector<int> currentsize[52];        //vector to keep track of size
 
 };
 
