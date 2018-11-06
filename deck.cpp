@@ -32,7 +32,8 @@ Card Deck::dealCard()   // get a card, after 52 are dealt, fail
 {
     if ((size() > 0)&&(myIndex < 51)) {
         Card dealbaby = myCards[myIndex];
-        size();
+        current--;
+        currentsize->resize(current);
         return dealbaby;
     }
     else return              //fail
@@ -40,4 +41,6 @@ Card Deck::dealCard()   // get a card, after 52 are dealt, fail
 
 int  Deck::size() const // # cards left in the deck
 {
+
+    return currentsize->size();
 }

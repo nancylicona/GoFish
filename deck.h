@@ -17,14 +17,17 @@
 #define _DECK_H
 
 #include "card.h"
+#include <vector>
+#include <algorithm>
+#include <iterator>
 
+using namespace std;
 
 class Deck
 {
   static const int SIZE = 52;
   
   public:
-    
     
     Deck();           // pristine, sorted deck
 
@@ -37,6 +40,9 @@ class Deck
 
     Card myCards[SIZE];
     int myIndex;  // current card to deal
+    int current=52;
+    vector<int> currentsize[52];        //vector to keep track of size
+
 };
 
 #endif
