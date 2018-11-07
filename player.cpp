@@ -82,6 +82,18 @@ bool Player::cardInHand(Card c) const{
             return true;}}                                                      //if same then true
     return false;}                                                              //false otherwise
 
+//Remove the card c from the hand and return it to the caller
+Card Player::removeCardFromHand(Card c){
+    Card cardremove = c;                                                        //Copy of the card to be removed
+    int index;                                                                  //position in hand where card is
+    int sizehand=myHand.size();                                                 //Getting the size of my hand with vector function
+    for (index=0; index<sizehand; index++){                                     //for loop - increments the index when the card is not found
+        if(myHand[index]==c){                                                   //when found then break - index does not increment again
+            break;}
+    }
+    myHand.erase(myHand.begin()+index);                                         //Erase the card with index
+    return cardremove;                                                          //return the card that is been erase
+}
 
 
 
