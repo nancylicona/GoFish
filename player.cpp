@@ -1,5 +1,6 @@
 #include <iostream>
 #include "player.h"
+#include <iterator>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ void Player::addCard(Card c)
 
 
 void Player::bookCards(Card c1, Card c2){
-    if(c1==c2){                                     // if cards are the same rank and spades
+    if(c1.getRank()==c2.getRank()){                  // if cards are the same rank and spades
         myBook.push_back(c1);                       //Add card1 to the book
         myBook.push_back(c2);                       //Add card2 to the book
     }
@@ -43,3 +44,18 @@ bool Player::checkHandForBook(Card &c1, Card &c2) {
     }
     return false;           //pair not found
 }
+
+//OPTIONAL
+// comment out if you decide to not use it
+//Does the player have a card with the same rank as c in her hand?
+bool Player::rankInHand(Card c) const{                                           //Since f(const) const_iterator
+    Card cardpointer;
+    vector<Card>::const_iterator pointer;                                       //Pointer that goes through the hand
+    for(pointer=myHand.begin(); pointer!=myHand.end(); pointer++ ){             //For loop to go through the vector array
+        cardpointer = *pointer;
+        if (c.getRank() == cardpointer.getRank()){                              //If in the hand there it a card C then...
+            return true;}                                                       //Return true
+    }
+    return false;                                                               //If not equal hand is found then return false
+}
+
