@@ -74,4 +74,15 @@ Card Player::chooseCardFromHand() const{
 }
 
 
+//Does the player have the card c in her hand?
+bool Player::cardInHand(Card c) const{
+    vector<Card>::const_iterator pointer;                                       //Pointer that goes through the vector array
+    for(pointer=myHand.begin(); pointer!=myHand.end(); pointer++){              //loop through hand
+        if (c == *pointer){                                                     //De-referencing pointer - Comparing both cards, suit and rank
+            return true;}}                                                      //if same then true
+    return false;}                                                              //false otherwise
+
+
+
+
 
