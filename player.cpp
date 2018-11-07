@@ -31,9 +31,9 @@ bool Player::checkHandForBook(Card &c1, Card &c2) {
     Card card2;     //declare card2
     vector<Card>::iterator iter;        //declare iter pointer
     vector<Card>::iterator iter2;       //declare iter2 pointer
-    for (iter = myHand.begin(); iter != myHand.end(); iter++) {        //loops through all the hand
+    for (iter = myHand.begin(); iter != (myHand.end()-1); iter++) {        //loops through all the hand
         card1 = *iter;             //define card1
-        for (iter2 = iter + 1; iter2 != (myHand.end()+1); iter2++) {
+        for (iter2 = iter + 1; iter2 != myHand.end(); iter2++) {
             card2 = *iter2;           //define card2
             if (card1.getRank() == card2.getRank()) {       //if the ranks are the same
                 c1 = card1;       //store card1
@@ -45,8 +45,6 @@ bool Player::checkHandForBook(Card &c1, Card &c2) {
     return false;           //pair not found
 }
 
-//OPTIONAL
-// comment out if you decide to not use it
 //Does the player have a card with the same rank as c in her hand?
 bool Player::rankInHand(Card c) const{                                           //Since f(const) const_iterator
     Card cardpointer;
@@ -59,10 +57,9 @@ bool Player::rankInHand(Card c) const{                                          
     return false;                                                               //If not equal hand is found then return false
 }
 
-
 //uses some strategy to choose one card from the player's
 //hand so they can say "Do you have a 4?"
-Card Player::chooseCardFromHand() const{            
+Card Player::chooseCardFromHand() const{
     Card Card1;                                         //declaring Card1
     unsigned long temp;                                 //declaring temp to hold random number
     unsigned long handsize;                             //declaring hand size to hold size of cards in hand
@@ -80,7 +77,9 @@ bool Player::cardInHand(Card c) const{
     for(pointer=myHand.begin(); pointer!=myHand.end(); pointer++){              //loop through hand
         if (c == *pointer){                                                     //De-referencing pointer - Comparing both cards, suit and rank
             return true;}}                                                      //if same then true
-    return false;}                                                              //false otherwise
+    return false;
+}                                                              //false otherwise
+
 
 //Remove the card c from the hand and return it to the caller
 Card Player::removeCardFromHand(Card c){
@@ -96,5 +95,28 @@ Card Player::removeCardFromHand(Card c){
 }
 
 
+//Returns a string with the cards in Hands
+string Player::showHand() const{
+    Card Cardtemp;              //declaring a Card temp that holds one card from hand
+    string string;              //string that will be return
+    vector<Card>::const_iterator pointer;           //declaring pointer
+    for(pointer=myHand.begin(); pointer!=myHand.end(); pointer++){          //loops through the cards in hand
+        Cardtemp=*pointer;                      //store card in temp
+        string=string.append(Cardtemp.toString());      //switch it to string and attach it to the string
+        string=string.append(" ");                      //attack space between cards
+    }
+    return string;
+}
 
-
+//Returns a string with the cards in Book
+string Player::showBooks() const{
+    Card Cardtemp;              //declaring a Card temp that holds one card from book
+    string string;              //string that will be return
+    vector<Card>::const_iterator pointer;           //declaring pointer
+    for(pointer=myBook.begin(); pointer!=myBook.end(); pointer++){          //loops through the cards in book
+        Cardtemp=*pointer;                      //store card in temp
+        string=string.append(Cardtemp.toString());      //switch it to string and attach it to the string
+        string=string.append(" ");                      //attack space between cards
+    }
+    return string;
+}
