@@ -15,18 +15,21 @@ Deck::Deck()           // pristine, sorted deck
     }
 }
 
-void Deck::shuffle()   // shuffle the deck
+
+void Deck::shuffle()   // shuffle the remaining deck
 {
     for(int i=0; i < size(); i++){             //loops through all the remaining cards in the deck
-        int card1 = (rand() % size()) + 1;     //getting random for myCard index
-        int card2 = (rand() % size()) + 1;     //getting second random for myCard index
-        if (card1!=card2){			//if they are not the same random numbers
+        int temp=SIZE - myIndex -1;             //temp to shuffle the right random
+        int card1 = (rand() % temp + myIndex;     //getting random for myCard index
+        int card2 = (rand() % temp + myIndex;     //getting second random for myCard index
+        if (card1!=card2 && size()>1){			//if they are not the same random numbers
             int temp = card1;			//set temporary
             myCards[card1]=myCards[card2];	//swap the...
             myCards[card2]=myCards[temp];	//...cards
         }
     }
 }
+
 
 Card Deck::dealCard()   // get a card, after 52 are dealt, fail
 {
