@@ -59,3 +59,19 @@ bool Player::rankInHand(Card c) const{                                          
     return false;                                                               //If not equal hand is found then return false
 }
 
+
+//uses some strategy to choose one card from the player's
+//hand so they can say "Do you have a 4?"
+Card Player::chooseCardFromHand() const{            
+    Card Card1;                                         //declaring Card1
+    unsigned long temp;                                 //declaring temp to hold random number
+    unsigned long handsize;                             //declaring hand size to hold size of cards in hand
+    vector<Card>::const_iterator pointer=myHand.begin();    //declaring pointer which points to the beginning of myHands vector
+    handsize=myHand.size() - 1;                         //getting size of myHand
+    temp=rand()% handsize;                              //temp holds the random number from 0 to myHand.size - 1
+    Card1 = *(pointer+temp);                            //store card in variable...
+    return Card1;                                       //return that random card
+}
+
+
+
