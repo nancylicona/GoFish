@@ -120,3 +120,13 @@ string Player::showBooks() const{
     }
     return string;
 }
+
+
+int Player::getHandSize() const{
+    return myHand.size();                               //return an int of the number of cards in my hand
+}
+int Player::getBookSize() const{
+    return myBook.size();                               //return an int of the number of cards in my book 
+}
+
+
