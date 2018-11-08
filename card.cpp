@@ -69,7 +69,7 @@ string Card::suitString(Suit s)const{
 string Card::rankString(int r)const{
     string s = "";
     char buff[3]; //String where the rank is return
-cout << "rting " << itoa(r,buff,10) << endl;
+//cout << "rting " << itoa(r,buff,10) << endl;
     if (r==1){return s="A";}
     else if (r>=2 && r<=10){return s = s + itoa(r,buff,10);}
     else if (r==11){return s="J";}
