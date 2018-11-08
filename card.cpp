@@ -18,24 +18,24 @@ Card::Card(int rank, Suit s) {                     //Constructor when given an i
 // The function toString() converts a card to a string, e.g., to print
 // return string version e.g. Ac 4h Js
 string Card::toString()const{
-    string string;                                     //String datatype string that will return my result
+    string s;                                     //String datatype string that will return my result
     switch(mySuit){
-        case spades : string = string.append(rankString(getRank()));     //Give me the rank
-            string = string.append(suitString(spades));
+        case spades : s = s.append(rankString(getRank()));     //Give me the rank
+            s = s.append(suitString(spades));
             break;}
     switch(mySuit){
-        case clubs : string = string.append(rankString(getRank()));     //rankString will give me the string of the rank by calling get Rank
-            string = string.append(suitString(clubs));                      //Append allowed me to join the rank and the string
+        case clubs : s = s.append(rankString(getRank()));     //rankString will give me the string of the rank by calling get Rank
+            s = s.append(suitString(clubs));                      //Append allowed me to join the rank and the string
             break;}
     switch(mySuit){
-        case hearts : string = string.append(rankString(getRank()));    //String = rank as a string
-            string = string.append(suitString(hearts));                     //String = rank string+the suit string together
+        case hearts : s = s.append(rankString(getRank()));    //String = rank as a string
+            s = s.append(suitString(hearts));                     //String = rank string+the suit string together
             break;}
     switch(mySuit){
-        case diamonds : string = string.append(rankString(getRank()));  //String has the rank as string
-            string =  string.append(suitString(diamonds));                     //String = rank string+the suit string together
+        case diamonds : s = s.append(rankString(getRank()));  //String has the rank as string
+            s =  s.append(suitString(diamonds));                     //String = rank string+the suit string together
             break;}
-    return string;  //return string as e.g. Ac 4h Js
+    return s;  //return string as e.g. Ac 4h Js
 }
 
 // true if suit same as c
@@ -67,20 +67,22 @@ string Card::suitString(Suit s)const{
 
 // return "A", "2", ..."Q"  append
 string Card::rankString(int r)const{
-    string string;                              //String where the rank is return
-    if (r==1){return string="A";}
-    else if (r>=2 && r<=10){return string = to_string(r);}
-    else if (r==11){return string="J";}
-    else if (r==12){return string="Q";}
-    else if (r==13){return string="K";}
+    string s = "";
+    char buff[3]; //String where the rank is return
+cout << "rting " << itoa(r,buff,10) << endl;
+    if (r==1){return s="A";}
+    else if (r>=2 && r<=10){return s = s + itoa(r,buff,10);}
+    else if (r==11){return s="J";}
+    else if (r==12){return s="Q";}
+    else if (r==13){return s="K";}
 }
 
 bool Card::operator == (const Card& rhs) const{
     return(myRank==rhs.myRank &&
-            mySuit==rhs.mySuit);
+           mySuit==rhs.mySuit);
 }
 bool Card::operator != (const Card& rhs) const{
     return(myRank!=rhs.myRank &&
-            mySuit!=rhs.mySuit);
+           mySuit!=rhs.mySuit);
 }
 
