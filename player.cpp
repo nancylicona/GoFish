@@ -114,27 +114,27 @@ Card Player::removeCardFromHand(Card c){
 //Returns a string with the cards in Hands
 string Player::showHand() const{
     Card Cardtemp;              //declaring a Card temp that holds one card from hand
-    string string;              //string that will be return
+    string s;              //string that will be return
     vector<Card>::const_iterator pointer;           //declaring pointer
     for(pointer=myHand.begin(); pointer!=myHand.end(); pointer++){          //loops through the cards in hand
         Cardtemp=*pointer;                      //store card in temp
-        string=string.append(Cardtemp.toString());      //switch it to string and attach it to the string
-        string=string.append(" ");                      //attack space between cards
+        s=s.append(Cardtemp.toString());      //switch it to string and attach it to the string
+        s=s.append(" ");                      //attack space between cards
     }
-    return string;
+    return s;
 }
 
 //Returns a string with the cards in Book
 string Player::showBooks() const{
     Card Cardtemp;              //declaring a Card temp that holds one card from book
-    string string;              //string that will be return
+    string s;              //string that will be return
     vector<Card>::const_iterator pointer;           //declaring pointer
     for(pointer=myBook.begin(); pointer!=myBook.end(); pointer++){          //loops through the cards in book
         Cardtemp=*pointer;                      //store card in temp
-        string=string.append(Cardtemp.toString());      //switch it to string and attach it to the string
-        string=string.append(" ");                      //attack space between cards
+        s=s.append(Cardtemp.toString());      //switch it to string and attach it to the string
+        s=s.append(" ");                      //attack space between cards
     }
-    return string;
+    return s;
 }
 
 int Player::getHandSize() const{
