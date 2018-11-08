@@ -1,6 +1,6 @@
 //File Name: card.h
 //
-//Written by Nancy Licona and Stephanie Orellana
+// written by Owen Astrachan and Roger Priebe
 // This class represents a playing card, i.e., "ace of spades"
 // a Card is constructed from a rank (int in range 1..13)
 // and a suit (Card::spades, Card::hearts, Card::diamonds,
@@ -32,10 +32,9 @@ class Card
   public:
 
 
-    enum Suit {spades, hearts, diamonds, clubs};            //An enumeration is a distinct type whose value is restricted to a range of values
-                                                            //We have specifies the suits of the cards
+    enum Suit {spades, hearts, diamonds, clubs};
     
-    Card();                                                 // default, ace of spades
+    Card();          // default, ace of spades
 
     Card(int rank, Suit s);
 
@@ -44,11 +43,11 @@ class Card
     int  getRank()                 const;  // return rank, 1..13
     string suitString(Suit s)      const;  // return "s", "h",...
     
-    string rankString(int r)       const;  // return "A", "2", ..."Q"  append
+    string rankString(int r)       const;  // return "A", "2", ..."Q"  
     
     
     bool operator == (const Card& rhs) const;
-    bool operator != (const Card& rhs) const;   //operator for the suit (?)
+    bool operator != (const Card& rhs) const;
     
 
     

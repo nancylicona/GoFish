@@ -1,6 +1,8 @@
 #include <iostream>
 #include "player.h"
 #include <iterator>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -8,6 +10,10 @@ Player::Player() {
     myName="";          //set to empty string
     myHand.resize(0);   //set to size 0
     myBook.resize(0);   //set to size 0
+}
+
+string Player::getname()const{
+    return myName;
 }
 
 void Player::addCard(Card c)
@@ -31,14 +37,16 @@ bool Player::checkHandForBook(Card &c1, Card &c2) {
     Card card2;     //declare card2
     vector<Card>::iterator iter;        //declare iter pointer
     vector<Card>::iterator iter2;       //declare iter2 pointer
-    for (iter = myHand.begin(); iter != (myHand.end()-1); iter++) {        //loops through all the hand
-        card1 = *iter;             //define card1
-        for (iter2 = iter + 1; iter2 != myHand.end(); iter2++) {
-            card2 = *iter2;           //define card2
-            if (card1.getRank() == card2.getRank()) {       //if the ranks are the same
-                c1 = card1;       //store card1
-                c2 = card1;       //store card2
-                return true;      //pair found
+    if(myHand.size() > 1) {
+        for (iter = myHand.begin(); iter != (myHand.end() - 1); iter++) {        //loops through all the hand
+            card1 = *iter;             //define card1
+            for (iter2 = iter + 1; iter2 != myHand.end(); iter2++) {
+                card2 = *iter2;           //define card2
+                if (card1.getRank() == card2.getRank()) {       //if the ranks are the same
+                    c1 = card1;       //store card1
+                    c2 = card2;       //store card2
+                    return true;      //pair found
+                }
             }
         }
     }
@@ -60,14 +68,22 @@ bool Player::rankInHand(Card c) const{                                          
 //uses some strategy to choose one card from the player's
 //hand so they can say "Do you have a 4?"
 Card Player::chooseCardFromHand() const{
+    //srand(time(NULL));                      //seeding the random generator witht he clock of prog.
     Card Card1;                                         //declaring Card1
     unsigned long temp;                                 //declaring temp to hold random number
     unsigned long handsize;                             //declaring hand size to hold size of cards in hand
     vector<Card>::const_iterator pointer=myHand.begin();    //declaring pointer which points to the beginning of myHands vector
-    handsize=myHand.size() - 1;                         //getting size of myHand
-    temp=rand()% handsize;                              //temp holds the random number from 0 to myHand.size - 1
-    Card1 = *(pointer+temp);                            //store card in variable...
-    return Card1;                                       //return that random card
+    if(myHand.size()>1) {
+        handsize = myHand.size() - 1;                         //getting size of myHand
+        srand(time(NULL));
+        temp = rand() % handsize;                              //temp holds the random number from 0 to myHand.size - 1
+        Card1 = *(pointer + temp);                            //store card in variable...
+        return Card1;                                       //return that random card
+    }
+    else{
+        Card1 = myHand[0];
+        return Card1;
+    }
 }
 
 
@@ -121,12 +137,28 @@ string Player::showBooks() const{
     return string;
 }
 
-
 int Player::getHandSize() const{
     return myHand.size();                               //return an int of the number of cards in my hand
 }
 int Player::getBookSize() const{
-    return myBook.size();                               //return an int of the number of cards in my book 
+    return myBook.size();                               //return an int of the number of cards in my book
+}
+
+//Compares the ranks from c and returns the card with the same rank
+Card Player::returnCardsameRank (Card c) const{
+    Card temp;                              //holds cards from hand
+    vector<Card>:: const_iterator pointer;          //pointer to iterate vector
+    for(pointer=myHand.begin(); pointer!=myHand.end(); pointer++){      //loops through hand
+        temp=*pointer;              //dereferencing the pointer
+        if(c.getRank()==temp.getRank()){            //if rank is the same
+            return temp;            //return that card
+        }
+    }
+}
+
+
+bool Player::operator == (const Player& rhs) const{
+    return(myName==rhs.myName);
 }
 
 

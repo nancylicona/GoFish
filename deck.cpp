@@ -1,5 +1,7 @@
 #include <iostream>
 #include "deck.h"
+#include <cstdlib>
+#include <ctime>
 
 
 using namespace std;
@@ -15,21 +17,23 @@ Deck::Deck()           // pristine, sorted deck
     }
 }
 
-
 void Deck::shuffle()   // shuffle the remaining deck
 {
+    //srand(time(NULL));                      //seeding the random generator witht he clock of prog.
     for(int i=0; i < size(); i++){             //loops through all the remaining cards in the deck
-        int temp=SIZE - myIndex -1;             //temp to shuffle the right random
+        Card temp2;
+        int temp= SIZE - myIndex -1;             //temp to shuffle the right random
+        srand(time(NULL));
         int card1 = (rand() % temp + myIndex);     //getting random for myCard index
+        srand(time(NULL));
         int card2 = (rand() % temp + myIndex);     //getting second random for myCard index
         if (card1!=card2 && size()>1){			//if they are not the same random numbers
-            int temp = card1;			//set temporary
+            temp2 = myCards[card1];			//set temporary
             myCards[card1]=myCards[card2];	//swap the...
-            myCards[card2]=myCards[temp];	//...cards
+            myCards[card2]=temp2;	//...cards
         }
     }
 }
-
 
 Card Deck::dealCard()   // get a card, after 52 are dealt, fail
 {

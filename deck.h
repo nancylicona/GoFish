@@ -35,11 +35,12 @@ class Deck
     Card dealCard();   // get a card, after 52 are dealt, fail 
 
     int  size() const; // # cards left in the deck
+//    Card myCards[SIZE];
 
   private:
 
     Card myCards[SIZE];
-    int myIndex;  // current card to deal
+    int myIndex=0;  // current card to deal
 
 };
 
