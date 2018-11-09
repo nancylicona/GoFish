@@ -66,10 +66,10 @@ int main( ) {
    // turns=p1;                       //player 1 has the first turn
    // opponent=p2;                    //player 2 is the opponent
     cout << "LETS PLAY!" <<endl;            //DEBUG COMMENT
-    while(d.size()!=0 && p1.getHandSize()!=0 && p2.getHandSize()!=0){           //loops until game ove
+    while( (p1.getBookSize()+p2.getBookSize()) !=52 ){           //loops until game ove
         displayhand(turns, opponent);       //DEBUGG COMMENT
-        if(turns.getHandSize()>0 && opponent.getHandSize()>0) {
-            c1 = turns.chooseCardFromHand();    //choosing a card from hand to ask for
+        if(turns.getHandSize()>0 && opponent.getHandSize()>0) { //Case where we can ask opponent for cards              //AMBOS TIENEN CARTAS
+            c1 = turns.chooseCardFromHand();    //get a random card form turns hand
             cout << turns.getname() << ": Do you have a " << c1.toString() << "?" << endl;     //ask for a rank
             if (opponent.rankInHand(c1)) {            //if true - card is in the opponents hand
                 cout << opponent.getname() << ": Yes I do Sir " << turns.getname() << endl;         //out-puting answer
@@ -78,8 +78,10 @@ int main( ) {
                 c2 = opponent.removeCardFromHand(c2);        //...remove card from player
                 turns.bookCards(c1, c2);                //add card to player's book
                 cout << turns.getname() << " book: " << turns.showBooks() <<endl;       //DEBUG COMMENT
+                cout<<turns.getname()<<":"<<turns.showBooks()<<endl;      //DEBUG COMMENT
+                cout<<opponent.getname()<<":"<<opponent.showBooks()<<endl;      //DEBUG COMMENT
                 change = false;                           //turns keeps playing
-            } else {
+            } else {                        //Case were turns fish
                 cout << opponent.getname() << ": Go Fish Sir " << turns.getname() << endl;          //tell him to go fish
                 if(d.size()>0) {
                     c1 = d.dealCard();               //deal a card from deck
@@ -93,25 +95,34 @@ int main( ) {
                             c1 = turns.removeCardFromHand(c1);             //remove card from hand
                             c2 = turns.removeCardFromHand(c2);
                             cout << turns.getname() << ": Found pair " << c1.toString() << " " << c2.toString() << endl; //Critical question
+                            cout<<turns.getname()<<":"<<turns.showBooks()<<endl;      //DEBUG COMMENT
+                            cout<<opponent.getname()<<":"<<opponent.showBooks()<<endl;      //DEBUG COMMENT
                             change = false;               //turns keeps playing
-                        }
-                    } else { change = true; }              //flag to change turns
-                } else {change = true;}                     //flag to change turns because deck is empty and not pair found
+                        } else { change = true; }             //flag to change turns pair not found
+                    }  else { change = true; }             //flag to change turns only one card (can't compare for pairs)
+                } else { change = true; }                     //flag to change turns because deck is empty and not pair found
             }
         }
-        else if(turns.getHandSize()==0 && d.size()>0){
+        else if(d.size()>0){                    //NO CARDS IN ANY OR BOTH PLAYERS
             c1=d.dealCard();                    //get a card....
             turns.addCard(c1);                  //...and it to hand
-            change=true;                        //flag to change turns since you only have 1 card
+            if (turns.checkHandForBook(c1, c2)) {     //check for pairs
+                turns.bookCards(c1, c2);                   //book cards from player
+                c1 = turns.removeCardFromHand(c1);             //remove card from hand
+                c2 = turns.removeCardFromHand(c2);
+                cout << turns.getname() << ": Found pair " << c1.toString() << " " << c2.toString() << endl; //Critical question
+                cout<<turns.getname()<<":"<<turns.showBooks()<<endl;      //DEBUG COMMENT
+                cout<<opponent.getname()<<":"<<opponent.showBooks()<<endl;      //DEBUG COMMENT
+                change = false;               //turns keeps playing
+            } else { change = true; }             //flag to change turns pair not found
         }
-        else if(turns.getHandSize()==0 && d.size()==0){
-            change = true;
-        }
+       // else if(turns.getHandSize()==0 && d.size()==0){     //no cards in hands & deck is empty
+       //     change = true;
+       // }
         if (change == true) {
             changeturns(turns, p1, p2, opponent);         //change player turns
         }
     }
-
     changeturns(turns, p1, p2, opponent);
     cout<< "WINNER OF THE GO FISH GAME IS ..............." << endl; //...print out he won
     if(p1.getBookSize()==p2.getBookSize()){     //if a tie!
@@ -123,6 +134,10 @@ int main( ) {
     else {                                      //if player 2 won...
         cout << "SIR " << p2.getname() << endl;
     }
+    cout<<turns.getname()<<":"<<turns.showBooks()<<endl;      //DEBUG COMMENT
+    cout<<opponent.getname()<<":"<<opponent.showBooks()<<endl;      //DEBUG COMMENT
+    Deck p;
+
 }
 
 
@@ -134,9 +149,6 @@ void dealHand(Deck &d, Player &p, int numCards)
        p.addCard(c);
    }
 }
-   
-
-
 
 void displayhand(Player &p1, Player &p2){
     cout << p1.getName() <<" has : " << p1.showHand() << endl;
