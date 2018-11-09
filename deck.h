@@ -40,7 +40,7 @@ class Deck
   private:
 
     Card myCards[SIZE];
-    int myIndex=0;  // current card to deal
+    int myIndex;  // current card to deal
 
 };
 

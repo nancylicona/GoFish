@@ -1,4 +1,7 @@
 #include <iostream>
+#include <stdlib.h>
+#include <sstream>
+#include <string>
 #include "card.h"
 
 using namespace std;
@@ -68,10 +71,10 @@ string Card::suitString(Suit s)const{
 // return "A", "2", ..."Q"  append
 string Card::rankString(int r)const{
     string s = "";
-    char buff[3]; //String where the rank is return
-//cout << "rting " << itoa(r,buff,10) << endl;
+    ostringstream t;
+    t << r;
     if (r==1){return s="A";}
-    else if (r>=2 && r<=10){return s = s + itoa(r,buff,10);}
+    else if (r>=2 && r<=10){return s = (t.str());}
     else if (r==11){return s="J";}
     else if (r==12){return s="Q";}
     else if (r==13){return s="K";}

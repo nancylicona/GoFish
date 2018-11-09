@@ -8,6 +8,7 @@ using namespace std;
 
 Deck::Deck()           // pristine, sorted deck
 {   int j=0;		//myCards array index
+    myIndex=0;              //initialize my index to move around in Deck
     for(int suit = Card::spades; suit<=Card::clubs; suit++){        //looping through all the suits
         Card::Suit  suit2 = static_cast <Card::Suit> (suit); 	   // Casting suit to change datatype int to suit
         for(int r=1;r<14;r++){            	 //looping through all the ranks
@@ -19,13 +20,11 @@ Deck::Deck()           // pristine, sorted deck
 
 void Deck::shuffle()   // shuffle the remaining deck
 {
-    //srand(time(NULL));                      //seeding the random generator witht he clock of prog.
+    srand(time(NULL));                      //seeding the random generator witht he clock of prog.
     for(int i=0; i < size(); i++){             //loops through all the remaining cards in the deck
         Card temp2;
         int temp= SIZE - myIndex -1;             //temp to shuffle the right random
-        srand(time(NULL));
         int card1 = (rand() % temp + myIndex);     //getting random for myCard index
-        srand(time(NULL));
         int card2 = (rand() % temp + myIndex);     //getting second random for myCard index
         if (card1!=card2 && size()>1){			//if they are not the same random numbers
             temp2 = myCards[card1];			//set temporary
